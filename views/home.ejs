@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports Scheduler</title>
+  <style>
+    /* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+  background-color: #ff5722;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header .logo h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.header .nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  font-size: 1rem;
+}
+
+.header .nav a:hover {
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+/* Hero Section */
+.hero {
+  background: url('https://img.freepik.com/free-vector/realistic-american-football-stadium_52683-53728.jpg?t=st=1735573121~exp=1735576721~hmac=a4757761dd2f3a65a2c836832e9c04878dfde2f8141abfbc90e6edf79a0d3f0e&w=740') no-repeat center center/cover;
+  color: white;
+  padding: 120px 20px;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.cta-buttons {
+  margin-top: 20px;
+}
+
+.cta-button {
+  background-color: #28a745;
+  color: white;
+  padding: 15px 40px;
+  text-decoration: none;
+  border-radius: 50px;
+  margin: 0 10px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #218838;
+}
+
+/* Key Features Section */
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item {
+  text-align: center;
+  max-width: 250px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-item i {
+  font-size: 3rem;
+  color: #ff5722;
+  margin-bottom: 15px;
+}
+
+.feature-item h3 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.feature-item p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.feature-item:hover {
+  transform: translateY(-10px);
+}
+
+.feature-item:hover i {
+  color: #28a745;
+}
+
+/* How It Works Section */
+.how-it-works {
+  background-color: #ffffff;
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 2px solid #ff5722;
+}
+
+.how-it-works h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.how-it-works ol {
+  list-style-type: decimal;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.how-it-works li {
+  margin: 10px 0;
+}
+
+/* Testimonials Section */
+.testimonials {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.testimonials h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.testimonials p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Footer */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer a {
+  color: #f4f4f4;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.social-links {
+  margin-top: 20px;
+}
+
+.social-links a {
+  color: #ff5722;
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-item {
+    margin-bottom: 30px;
+    max-width: 90%;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 10px 30px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header .logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .header .nav a {
+    font-size: 0.9rem;
+  }
+
+  .hero h2 {
+    font-size: 1.8rem;
+  }
+
+  .cta-button {
+    font-size: 0.8rem;
+    padding: 8px 20px;
+  }
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+    width: 200px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- For FontAwesome Icons -->
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <h1>SportsScheduler</h1>
+    </div>
+    <nav class="nav">
+      <a href="/home">Home</a>
+      <a href="/signup">Sign Up</a>
+      <a href="/signin">Sign In</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Organize, Play, and Join Sports Sessions</h2>
+      <p>Find and create sports sessions with friends or new players!</p>
+      <div class="cta-buttons">
+        <a href="/login"><button id="signin">Sign In</button></a>
+        <a href="/signup"><button id="signup">Sign Up</button></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features">
+    <div class="feature-item">
+      <i class="fas fa-calendar-check"></i>
+      <h3>Create Sport Sessions</h3>
+      <p>Organize games and invite others to join your session.</p>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-users"></i>
+      <h3>Join Sessions</h3>
+      <p>Join existing sports sessions with players near you.</p>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <h3>Find Local Matches</h3>
+      <p>Find games happening around you and join in!</p>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <ol>
+      <li>Sign up and create an account</li>
+      <li>Create or join a session</li>
+      <li>Enjoy the game!</li>
+    </ol>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <h2>What Users Say</h2>
+    <p>"This platform helped me find a local match quickly. Great way to meet new people!" - Sarah T.</p>
+    <p>Over 1,000 sessions organized and counting!</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>Contact Us: <a href="mailto:info@sportsscheduler.com">info@sportsscheduler.com</a></p>
+      <p>&copy; 2024 SportsScheduler. All Rights Reserved.</p>
+      <div class="social-links">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

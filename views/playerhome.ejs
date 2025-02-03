@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Player</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            background: linear-gradient(to bottom right, #ff7e5f, #feb47b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container for all content */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transform: translateY(-50px);
+            animation: slideUp 0.7s ease-in-out forwards;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: #4CAF50;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #777;
+            opacity: 0;
+            animation: fadeInText 1s 0.5s forwards;
+        }
+
+        /* Events Section */
+        .events-section {
+            margin-top: 20px;
+        }
+
+        .events-section h2 {
+            font-size: 28px;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeInText 1s 1s forwards;
+        }
+
+        /* Event Cards Styling */
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .event-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-card h3 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .event-card p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .register-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background-color: #45a049;
+        }
+
+        .unregister-btn {
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .unregister-btn:hover {
+            background-color: #e53935;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #e53935;
+        }
+
+        /* Keyframes for Animations */
+        @keyframes slideUp {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Welcome, <%= userName %></h1>
+            <p>Ready for your next sport session? Check out the upcoming events!</p>
+        </header>
+
+        <div class="events-section">
+            <h2>Upcoming Sports Events</h2>
+            <div id="eventsList" class="events-list">
+                <% if (events.length === 0) { %>
+                    <p>No upcoming events available.</p>
+                <% } else { %>
+                    <% events.forEach(function(event) { %>
+                        <div class="event-card">
+                            <h3><%= event.name %> - <%= event.date %></h3>
+                            <p>Location: <%= event.venue %></p>
+                            <p>Players Registered: <%= event.playersRegistered %>/<%= event.totalPlayers %></p>
+
+                            <% if (event.isJoined) { %>
+                                <!-- Show Unjoin button if player is already joined -->
+                                <button class="unregister-btn" onclick="unjoinEvent('<%= event.id %>')">Unjoin</button>
+                            <% } else { %>
+                                <!-- Show Join button if player hasn't joined -->
+                                <button class="register-btn" onclick="joinEvent('<%= event.id %>')">Join Now</button>
+                            <% } %>
+                        </div>
+                    <% }); %>
+                <% } %>
+            </div>
+        </div>
+
+        <footer>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </footer>
+    </div>
+
+    <script>
+        // Join Event Function
+        function joinEvent(eventId) {
+            fetch(`/join-event/${eventId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload();  // Reload to update the button
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('Error joining the event');
+            });
+        }
+
+        // Unjoin Event Function
+        function unjoinEvent(eventId) {
+            fetch(`/unjoin-event/${eventId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload();  // Reload to update the button
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('Error unjoining the event');
+            });
+        }
+
+        // Logout Function
+        function logout() {
+            window.location.href = '/logout';
+        }
+    </script>
+</body>
+</html>

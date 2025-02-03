@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home - Sports Scheduler</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-menu li {
+            display: inline;
+        }
+
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Profile Menu */
+        .profile-menu {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            list-style: none;
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        .profile-dropdown.show {
+            display: block;
+        }
+
+        .profile-dropdown li {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .profile-dropdown a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #333;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #777;
+        }
+
+        /* Dashboard Section */
+        .dashboard-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 30%;
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .btn-manage {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn-manage:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">Sports Scheduler</div>
+            <ul class="navbar-menu">
+                <li><a href="/adminhome">Dashboard</a></li>
+                <li><a href="/manage-events">Manage Sports</a></li>
+                <li><a href="/manage-events">Manage Events</a></li>
+                <li class="profile-menu">
+                    <img src="profile-icon.png" alt="Profile" id="profile-logo" width="40" height="40">
+                    <ul class="profile-dropdown">
+                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="/logout" onclick="logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Header -->
+        <header class="header">
+            <h1>Welcome, <%= userName %>!</h1>
+            <p>Your dashboard for managing sports, events, and user reports.</p>
+        </header>
+
+        <!-- Admin Dashboard -->
+        <div class="dashboard-section">
+            <div class="card manage-sports">
+                <h2>Manage Sports</h2>
+                <p>Add, edit, or delete sports available for scheduling.</p>
+                <a href="/manage-events" class="btn-manage">Go to Manage Sports</a>
+            </div>
+            <div class="card manage-events">
+                <h2>Manage Events</h2>
+                <p>Create, update, or cancel upcoming events for players.</p>
+                <a href="/manage-events" class="btn-manage">Go to Manage Events</a>
+            </div>
+            <div class="card view-reports">
+                <h2>View Reports</h2>
+                <p>Track the number of sessions played and the popularity of sports.</p>
+                <a href="/reports" class="btn-manage">View Reports</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle profile menu visibility
+        document.getElementById('profile-logo').addEventListener('click', function() {
+            const profileDropdown = document.querySelector('.profile-dropdown');
+            profileDropdown.classList.toggle('show');
+        });
+
+        // Logout function
+        function logout() {
+            window.location.href = '/logout';
+        }
+    </script>
+</body>
+</html>
